@@ -5,6 +5,8 @@ class Demon::DiscordBot < ::Demon::Base
 
   private
 
+  already_starting = false
+
   def suppress_stdout
     false
   end
@@ -85,12 +87,15 @@ class Demon::DiscordBot < ::Demon::Base
 
   def start_discord_bot
     return if no_token || already_running
+
+    already_starting = true
     Discourse.redis.set("discord_bot:current_action", " currently starting ...")
     puts "[DiscordRolesync] discord bot started!"
     @bot = Discordrb::Bot.new(token: SiteSetting.discord_rolesync_token,
                                       intents: %i[servers server_members])
     setup_bot_events
     @bot.run(true)
+    already_starting = false
   end
 
   def stop_discord_bot
@@ -145,7 +150,7 @@ class Demon::DiscordBot < ::Demon::Base
     bot_not_ready!
 
     while @running
-      start_discord_bot if  SiteSetting.discord_rolesync_bot_on
+      start_discord_bot if SiteSetting.discord_rolesync_bot_on && !already_starting
       stop_discord_bot unless SiteSetting.discord_rolesync_bot_on
       sync_discord_roles unless sync_command.nil?
       sleep 1
