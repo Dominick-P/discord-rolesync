@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# name: DiscordRolesync
+# name: DiscordRolesyncFix
 # about: sync roles of discord users to discourse
 # version: 0.1
 # authors: spirobel
