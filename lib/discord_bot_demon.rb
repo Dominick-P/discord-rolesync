@@ -1,8 +1,4 @@
 class Demon::DiscordBot < ::Demon::Base
-  def initialize
-    @already_starting = false
-  end
-
   def self.prefix
     "discord_bot"
   end
@@ -149,6 +145,7 @@ class Demon::DiscordBot < ::Demon::Base
     handle_interrups
     @bot = nil
     @running = true
+    @already_starting = false
     bot_not_ready!
 
     while @running
