@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-# name: DiscordRolesyncFix
+# name: DiscordRolesync
 # about: sync roles of discord users to discourse
 # version: 0.1
 # authors: spirobel
 # url: https://github.com/spirobel
+
 gem 'event_emitter', '0.2.6'
 gem 'websocket', '1.2.8'
 gem 'websocket-client-simple', '0.3.0'
